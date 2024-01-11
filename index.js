@@ -2,19 +2,19 @@ const express = require("express");
 const app = express();
 
 app.get("/api/:date", (req, res) => {
-  
+  console.log("string",req.params.date)
   let date = Number(req.params.date);
   
   let date1=req.params.date
 
-if(!date1){
+if(date1.length==0){
   return res.send({ unix: new Date().toUTCString(), utc: new Date().getTime() })
   }
 
   if (isNaN(date)) {
     date=date.toString();
     date1 = new Date(date1).toUTCString();
-    console.log(date1 == "Invalid Date",typeof(date),date)
+    console.log(date1 == "Invalid Date",typeof(date1),date1)
     if (date1 == "Invalid Date") {
       res.json({ error: "Invalid Date" });
     } else {
