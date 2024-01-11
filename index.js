@@ -2,29 +2,28 @@ const express = require("express");
 const app = express();
 
 app.get("/api/:date", (req, res) => {
-  console.log("string",req.params.date)
-  let date = Number(req.params.date);
-  
-  let date1=req.params.date
+  console.log("string", req.params.date);
+  let date = req.params.date;
 
-if(!date1){
-  return res.send({ unix: new Date().toUTCString(), utc: new Date().getTime() })
+  if (!date) {
+    return res.send({ unix: new Date().getTime(), utc: new Date().toUTCString() });
   }
 
   if (isNaN(date)) {
-    date=date.toString();
-    date1 = new Date(date1).toUTCString();
-   
-    if (date1 == "Invalid Date") {
+    date = new Date(date).toUTCString();
+
+    if (date == "Invalid Date") {
       res.json({ error: "Invalid Date" });
     } else {
-      return res.send({ unix: new Date(date1).getTime(), utc: date1 });
+      return res.send({ unix: new Date(date).getTime(), utc: date });
     }
   } else {
-    date1 = new Date(date).toUTCString();
-  
-    return res.send({ unix: date, utc: date1 });
+    date = new Date(Number(date)).toUTCString();
+    return res.send({ unix: Number(date), utc: date });
   }
 });
 
-app.listen(2000);
+const PORT = process.env.PORT || 2000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
