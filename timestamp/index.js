@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const cors=require("cors")
-app.use({origin:"*"})
+app.use()
 app.get("/api/:date?", (req, res) => {
   console.log("string", req.params.date);
   let date = req.params.date;
