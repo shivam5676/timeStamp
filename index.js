@@ -7,14 +7,14 @@ app.get("/api/:date", (req, res) => {
   
   let date1=req.params.date
 
-if(date1.length==0){
+if(!date1){
   return res.send({ unix: new Date().toUTCString(), utc: new Date().getTime() })
   }
 
   if (isNaN(date)) {
     date=date.toString();
     date1 = new Date(date1).toUTCString();
-    console.log(date1 == "Invalid Date",typeof(date1),date1)
+   
     if (date1 == "Invalid Date") {
       res.json({ error: "Invalid Date" });
     } else {
@@ -22,15 +22,9 @@ if(date1.length==0){
     }
   } else {
     date1 = new Date(date).toUTCString();
-    console.log(date);
+  
     return res.send({ unix: date, utc: date1 });
   }
 });
 
-app.listen(2000, (err) => {
-  if (err) {
-    console.error("Error starting the server:", err);
-  } else {
-    console.log("Server is listening on port 2000");
-  }
-});
+app.listen(2000);
